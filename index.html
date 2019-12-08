@@ -104,6 +104,17 @@ let currentState = window.history.state
 						<p>Returns an any value representing the state at the top of the history stack. This is a way to look at the state without having to wait for a popstate event.</p>
 						<p class="fragment">The value of the state property is null until you call pushState() or replaceState().</p>
 					</section>
+					<section>
+						<p>The scrollRestoration property of History interface allows web applications to explicitly set default scroll restoration behavior on history navigation.</p>
+						<pre class="fragment"><code class="javascript" data-trim contenteditable style="font-size: 18px;">
+let scrollRestore = window.history.scrollRestoration;
+						</code></pre>
+						<p class="fragment">Values:</p>
+						<ul class="fragment">
+							<li>"auto" - The location on the page to which the user has scrolled will be restored.</li>
+							<li>"manual" - The location on the page is not restored. The user will have to scroll to the location manually.</li>
+						</ul>
+					</section>
 				</section>
 				<section>
 					<section>
@@ -169,6 +180,9 @@ window.history.replaceState(state, title, url);
 window.onpopstate = funcRef;
 						</code></pre>
 						<p>Where funcRef is a handler function.</p>
+					</section>
+					<section>
+						<p>Note that just calling history.pushState() or history.replaceState() won't trigger a popstate event. The popstate event will be triggered by doing a browser action such as a click on the back or forward button (or calling history.back() or history.forward() in JavaScript).</p>
 					</section>
 				</section>
 				<section>
