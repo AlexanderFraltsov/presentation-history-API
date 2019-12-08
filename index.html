@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>HTML5. History API</title>
 
 		<link rel="stylesheet" href="css/reset.css">
 		<link rel="stylesheet" href="css/reveal.css">
@@ -99,7 +99,7 @@ let numberOfEntries = window.history.length
 					</section>
 					<section>
 						<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
-let currentState = history.state
+let currentState = window.history.state
 						</code></pre>
 						<p>Returns an any value representing the state at the top of the history stack. This is a way to look at the state without having to wait for a popstate event.</p>
 						<p class="fragment">The value of the state property is null until you call pushState() or replaceState().</p>
@@ -112,24 +112,24 @@ let currentState = history.state
 					<section>
 						<p>pushState()</p>
 						<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
-history.pushState(state, title, url);
+window.history.pushState(state, title, url);
 						</code></pre>
 						<p class="fragment">In an HTML document, the history.pushState() method adds a state to the browser's session history stack.</p>
 					</section>
 					<section>
 						<p>replaceState()</p>
 						<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
-history.replaceState(state, title, url);
+window.history.replaceState(state, title, url);
 						</code></pre>
 						<p class="fragment">The replaceState() method modifies the current history entry, replacing it with the state objects, title, and URL passed in the method parameters.</p>
 						<p class="fragment">This method is particularly useful when you want to update the state object or URL of the current history entry in response to some user action.</p>
 					</section>
 					<section>
 						<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
-history.pushState(state, title, url);
+window.history.pushState(state, title, url);
 						</code></pre>
 						<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
-history.replaceState(state, title, url);
+window.history.replaceState(state, title, url);
 						</code></pre>
 						<p>Parameter: <span class="fragment highlight-red">state</span></p>
 						<p class="fragment">The state object is a JavaScript object which is associated with the new history entry created by pushState(). And we can subsequently pass this object to the replaceState() method.</p>
@@ -137,10 +137,10 @@ history.replaceState(state, title, url);
 					</section>
 					<section>
 						<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
-history.pushState(state, title, url);
+window.history.pushState(state, title, url);
 						</code></pre>
 						<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
-history.replaceState(state, title, url);
+window.history.replaceState(state, title, url);
 						</code></pre>
 						<p>Parameter: <span class="fragment highlight-red">title</span></p>
 						<p class="fragment">Most browsers currently ignores this parameter, although they may use it in the future.</p>
@@ -148,10 +148,10 @@ history.replaceState(state, title, url);
 					</section>
 					<section>
 						<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
-history.pushState(state, title, url);
+window.history.pushState(state, title, url);
 						</code></pre>
 						<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
-history.replaceState(state, title, url);
+window.history.replaceState(state, title, url);
 						</code></pre>
 						<p>Parameter: <span class="fragment highlight-red">url</span></p>
 						<p class="fragment">The new history entry's URL is given by this parameter. The browser won't attempt to load this URL after a call to pushState(), but it might attempt to load the URL later, for instance after the user restarts the browser.</p>
