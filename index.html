@@ -1,0 +1,200 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>HTML5 History API</h1>
+					<p>
+						<small>Created by <a href="https://github.com/AlexanderFraltsov">Alexander Fraltsov</a></small>
+					</p>
+				</section>
+				<section>
+					<section>
+						<h2>What is it?</h2>
+					</section>
+					<section>
+						<p>The HTML5 history API is a standardized way to manipulate the browser history via script.</p>
+						<img width="571" height="427" src="img/pic1.png" alt="window history">
+					</section>
+					<section>
+						<p>Part of this API — navigating the history — has been available in previous versions of HTML.</p>
+						<p class="fragment">The new parts in HTML5 include a way to add entries to the browser history, to visibly change the URL in the browser location bar (without triggering a page refresh), and an event that fires when those entries are removed from the stack by the user pressing the browser’s back button.</p>
+					</section>
+					<section>
+						<p>This means that the URL in the browser location bar can continue to do its job as a unique identifier for the current resource, even in script-heavy applications that don’t ever perform a full page refresh.</p>
+						<p class="fragment"></p>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>History API. Moving</h2>
+					</section>
+					<section>
+						<p>To move backward through history:</p>
+						<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
+window.history.back()
+						</code></pre>
+						<p class="fragment">This acts exactly as if the user clicked on the Back button in the browser toolbar.</p>
+					</section>
+					<section>
+						<p>Similarly, you can move forward (as if the user clicked the Forward button), like this:</p>
+						<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
+window.history.forward()
+						</code></pre>
+					</section>
+					<section>
+						<h2>Moving to a specific point in history</h2>
+						<p class="fragment">You can use the go() method to load a specific page from session history, identified by its relative position to the current page (The current page's relative position is 0).</p>
+					</section>
+					<section>
+						<p>For example, to move back one page (the equivalent of calling back()):</p>
+						<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
+window.history.go(-1)
+						</code></pre>
+						<p class="fragment">To move forward a page, just like calling forward():</p>
+						<pre class="fragment"><code class="javascript" data-trim contenteditable style="font-size: 18px;">
+window.history.go(1)
+						</code></pre>
+					</section>
+					<section>
+						<p>And, finally either of the following statements will reload the current page:</p>
+						<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
+window.history.go(0)
+window.history.go()
+						</code></pre>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>History API. Properties</h2>
+					</section>
+					<section>
+						<p>You can determine the number of pages in the history stack by looking at the value of the length property:</p>
+						<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
+let numberOfEntries = window.history.length
+						</code></pre>
+					</section>
+					<section>
+						<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
+let currentState = history.state
+						</code></pre>
+						<p>Returns an any value representing the state at the top of the history stack. This is a way to look at the state without having to wait for a popstate event.</p>
+						<p class="fragment">The value of the state property is null until you call pushState() or replaceState().</p>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>History API. Methods</h2>
+					</section>
+					<section>
+						<p>pushState()</p>
+						<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
+history.pushState(state, title, url);
+						</code></pre>
+						<p class="fragment">In an HTML document, the history.pushState() method adds a state to the browser's session history stack.</p>
+					</section>
+					<section>
+						<p>replaceState()</p>
+						<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
+history.replaceState(state, title, url);
+						</code></pre>
+						<p class="fragment">The replaceState() method modifies the current history entry, replacing it with the state objects, title, and URL passed in the method parameters.</p>
+						<p class="fragment">This method is particularly useful when you want to update the state object or URL of the current history entry in response to some user action.</p>
+					</section>
+					<section>
+						<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
+history.pushState(state, title, url);
+						</code></pre>
+						<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
+history.replaceState(state, title, url);
+						</code></pre>
+						<p>Parameter: <span class="fragment highlight-red">state</span></p>
+						<p class="fragment">The state object is a JavaScript object which is associated with the new history entry created by pushState(). And we can subsequently pass this object to the replaceState() method.</p>
+						<p class="fragment">Whenever the user navigates to the new state, a popstate event is fired, and the state property of the event contains a copy of the history entry's state object.</p>
+					</section>
+					<section>
+						<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
+history.pushState(state, title, url);
+						</code></pre>
+						<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
+history.replaceState(state, title, url);
+						</code></pre>
+						<p>Parameter: <span class="fragment highlight-red">title</span></p>
+						<p class="fragment">Most browsers currently ignores this parameter, although they may use it in the future.</p>
+						<p class="fragment">Passing the empty string here should be safe against future changes to the method.</p>
+					</section>
+					<section>
+						<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
+history.pushState(state, title, url);
+						</code></pre>
+						<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
+history.replaceState(state, title, url);
+						</code></pre>
+						<p>Parameter: <span class="fragment highlight-red">url</span></p>
+						<p class="fragment">The new history entry's URL is given by this parameter. The browser won't attempt to load this URL after a call to pushState(), but it might attempt to load the URL later, for instance after the user restarts the browser.</p>
+						<p class="fragment">This parameter is optional; if it isn't specified, it's set to the document's current URL.</p>
+						<p class="fragment">The new URL does not need to be absolute; if it's relative, it's resolved relative to the current URL.</p>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>History API. The popstate event</h2>
+					</section>
+					<section>
+						<p>A popstate event is dispatched to the window every time the active history entry changes. If the history entry being activated was created by a call to pushState or affected by a call to replaceState, the popstate event's state property contains a copy of the history entry's state object.</p>
+						<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
+window.onpopstate = funcRef;
+						</code></pre>
+						<p>Where funcRef is a handler function.</p>
+					</section>
+				</section>
+				<section>
+					<h2>sources</h2>
+					<ul>
+						<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/History_API">MDN web docs. History API</a></li>
+						<li><a href="http://diveintohtml5.info/history.html">Dive into HTML5 by	Mark Pilgrim</a></li>
+					</ul>
+				</section>
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>
